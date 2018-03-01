@@ -1,6 +1,6 @@
 ![Alt text](logo.png "TLDR Logo")
 
-### Stay up on what's happening in the world.
+### Stay up on what's happening.
 
 
 
