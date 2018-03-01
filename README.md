@@ -15,7 +15,11 @@ TLDR is a social network and tool for discussing what's happening in the world.
 📚 **Follow** what your friends and role models are reading, too
 
 # Chrome Extension
+
+In order to allow us to make posts to the platform from the web, we'll use this starter code to build a chrome extension 💻✨
+
 ### Getting Started
+
 1. Download [**this repository**](https://github.com/elizabethsdavis/cs-social-good).
 
 2. Paste `chrome://extensions` into your browser tab and hit Enter
