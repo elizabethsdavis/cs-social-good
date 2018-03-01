@@ -27,6 +27,6 @@ TLDR is a social network and tool for collecting and discussing what's happening
 5. Navigate to where you downloaded this repo, and press okay
 
 6. View your extensions bar to verify that the **TLDR** simicolon icon popped up. 
-(Click it! Then navigate to a real [article](https://www.yahoo.com/gma/tainted-cheesecake-used-woman-trying-steal-anothers-identity-083803994--abc-news-topstories.html) and click it again!)
+(Click it! Then, navigate to a real [article](https://www.yahoo.com/gma/tainted-cheesecake-used-woman-trying-steal-anothers-identity-083803994--abc-news-topstories.html) and click it again!)
 
 7. While the extension is open, right click on it and hit **Inspect** when you wish to check the console
