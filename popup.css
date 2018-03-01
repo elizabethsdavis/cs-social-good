@@ -1,0 +1,406 @@
+/*
+App reset by Ben Frain @benfrain / benfrain.com
+Slightly modified by Bharani @bharani91 / github.com/bharani91
+*/
+/*Hat tip to @thierrykoblentz for this approach: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+html {
+  box-sizing: border-box;
+}
+
+* {
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: inherit;
+}
+
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+input[type],
+[contenteditable] {
+  user-select: text;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+a:focus,
+button:focus {
+  outline: 0;
+}
+
+input,
+fieldset {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+
+input:focus {
+  outline: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+html, body {
+  box-sizing: border-box;
+}
+
+html:before, html:after, body:before, body:after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-size: 16px;
+  color: #111111;
+  font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #242B3F;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 1.75em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.25em;
+}
+
+h4 {
+  font-size: 1.10em;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+h6 {
+  font-size: .85em;
+}
+
+nav {
+  margin: 1em 0;
+}
+
+a {
+  text-decoration: none;
+  color: #50E3C2;
+}
+
+a:hover, a:focus {
+  color: #2e7fde;
+}
+
+ul, ol {
+  margin-top: 0;
+  padding-top: 0;
+  padding-left: 2.5em;
+}
+
+p {
+  margin: 1em 0;
+  hyphens: auto;
+}
+
+p.lead {
+  font-size: 1.2em;
+}
+
+p:first-child {
+  margin-top: 0;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+p + ul, p + ol {
+  margin-top: -.75em;
+}
+
+dd {
+  margin-bottom: 1em;
+  margin-left: 0;
+  padding-left: 2.5em;
+}
+
+dt {
+  font-weight: 700;
+}
+
+blockquote {
+  margin: 0;
+  padding-left: 2.5em;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body, html {
+  padding: 0;
+  margin: 0;
+}
+
+hr {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  object-fit: cover;
+}
+
+#app {
+  padding: 0 12px 12px 12px;
+  background: #ffffff;
+}
+
+.tldr-text {
+  color: #4A4A4A;
+  font-size: 14px;
+}
+
+.destructive-text {
+  color: #E78A8D;
+}
+
+.hidden {
+  display: none;
+}
+
+.initial-spinner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 275px;
+}
+
+.popup-content {
+  min-height: 200px;
+  width: 330px;
+}
+
+.info-header {
+  margin: 8px 0;
+  height: 24px;
+}
+
+.info-label {
+  font-size: 14px;
+  height: 20px;
+  text-align: center;
+  color: #7A7A7A;
+}
+
+.preview-image {
+  height: 120px;
+  width: 100%;
+}
+
+.site-description {
+  padding: 0.5em;
+  margin: 0;
+}
+
+.site-description h3 {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 0.1em;
+}
+
+.site-description .description {
+  color: #7A7A7A;
+  max-height: 48px;
+  font-size: 13px;
+  line-height: 1.2;
+  overflow: hidden;
+}
+
+.site-description .url {
+  max-height: 32px;
+  outline: none;
+  text-decoration: none;
+  line-height: 1.2;
+  font-size: 12px;
+  word-break: break-word;
+  display: block;
+  overflow: hidden;
+}
+
+.action-container {
+  margin: 1em auto;
+}
+
+.tldr-text-field {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.tldr-text-field {
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+  width: auto;
+  min-height: 16px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.tldr-text-field {
+  margin: 0 0 0 2px;
+  padding: 0 0 0 4px;
+}
+
+.tldr-text-field {
+  color: white;
+  border-radius: 4px;
+}
+
+.tldr-text-field .new-tldr-input {
+  text-align: left;
+  margin-left: 0px;
+  padding-bottom: 10px;
+  overflow-x: auto;
+  width: auto;
+}
+
+.tldr-text-field .new-tldr-input .new-tldr-input-tldr:focus {
+  outline: 0px solid transparent;
+}
+
+.tldr-label {
+  font-size: 10pt;
+  text-align: center;
+  color: #D3D3D3;
+}
+
+.material-spinner {
+  position: relative;
+  margin: 0 auto 0 auto;
+  width: 20px;
+}
+
+.material-spinner:before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.material-spinner-large {
+  width: 40px;
+}
+
+.circular {
+  animation: rotate 2s linear infinite;
+  height: 100%;
+  transform-origin: center center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.path {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+  stroke-linecap: round;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+@keyframes color {
+  100%,
+  0% {
+    stroke: #d62d20;
+  }
+  40% {
+    stroke: #0057e7;
+  }
+  66% {
+    stroke: #008744;
+  }
+  80%,
+  90% {
+    stroke: #ffa700;
+  }
+}
