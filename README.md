@@ -16,7 +16,7 @@ TLDR is a social network and tool for discussing what's happening in the world.
 
 # Chrome Extension
 
-In order to allow **TLDR** users to make posts to the platform from the web, we'll use this starter code to build a chrome extension 💻✨
+In order to allow **TLDR** users to make posts to the platform from the web, we'll use this starter code to build a swanky chrome extension 💻✨
 
 ### Getting Started
 
