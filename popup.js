@@ -1,4 +1,4 @@
-
+const username = "cs-social-good";
 
 /**
  * Get the current URL.
@@ -220,64 +220,135 @@ function summarizeArticle(url) {
     })
 }
 
-// in process
-// function sendToFirebase() {
-//     return response = new Promise (function (resolve, reject) {
-//         var arguments = { 
-//             auth: "90D32633B1",
-//             SM_LENGTH: 1,
-//             SM_URL: url,
-//         };
+function createTLDR(articleURL, articleInfo, message) {
+    return {
 
-//         var xhttp  = new XMLHttpRequest,
-//         smmryURL   = "https://tldr-v2.firebaseio.com/data/threads.json",
-//         method     = "PUT";
+        "displayBoard":{
+            "id":"-L6EdiTvMdp2B7tcNI8F",
+            "name":"Tech + Social Good",
+            "owner":"Pq7AYzyLZmS9QnycZavXXak10A42"
+        },
+        "firstMessage": message,
+        "headline": articleInfo.title,
+        "imageURL": articleInfo.imageURL,
+        "originalPoster":"Pq7AYzyLZmS9QnycZavXXak10A42",
+        "timeCreated": Date.now() / 1000,
+        "url": articleURL
+    };   
+}
 
-//         console.log("Getting your article TLDR from SMMRY API for url: ", url), 
+function sendToFirebase(tldr) {
+    return response = new Promise (function (resolve, reject) {
 
-//         xhttp.onload = function() {
+        var xhttp     = new XMLHttpRequest,
+        firebaseURL   = "https://tldr-v2.firebaseio.com/threads/"+username+".json",
+        method        = "PUT";
 
-//             var summary = JSON.parse(xhttp.responseText).sm_api_content;
+        console.log("Sending TLDR to database...: ", firebaseURL), 
 
-//             console.log(JSON.parse(xhttp.responseText));
+        xhttp.onload = function() {
+            console.log(JSON.parse(xhttp.responseText));
+            resolve();
+        }
 
-//             resolve(summary);
-//         }
+        xhttp.onerror = function(error) {
+            console.log("Error analyzing text: ", error);
+            reject(error)
+        }
 
-//         xhttp.onerror = function(error) {
-//             console.log("Error analyzing text: ", error);
-//             reject(error)
-//         }
+        xhttp.open(method, firebaseURL, !0);
+        xhttp.send(JSON.stringify(tldr));
+    })
+}
 
-//         xhttp.open(method, smmryURL, !0);
-//         xhttp.send();
-//     })
-// }
+function createMessage(message) {
+    return {
+        "sender":"Pq7AYzyLZmS9QnycZavXXak10A42",
+        "text": message,
+        "thread": username,
+        "timeSent": Date.now() / 1000,
+    };   
+}
+
+function updateUserTLDRsInFirebase(tldr) {
+    return response = new Promise (function (resolve, reject) {
+
+        var xhttp     = new XMLHttpRequest,
+        firebaseURL   = "https://tldr-v2.firebaseio.com/user-threads/Pq7AYzyLZmS9QnycZavXXak10A42/"+username+".json",
+        method        = "PUT";
+
+        console.log("Sending TLDR to database...: ", firebaseURL), 
+
+        xhttp.onload = function() {
+            console.log(JSON.parse(xhttp.responseText));
+            resolve();
+        }
+
+        xhttp.onerror = function(error) {
+            reject(error)
+        }
+
+        xhttp.open(method, firebaseURL, !0);
+        xhttp.send(true);
+    })
+}
+
+function sendMessageToFirebase(message) {
+    return response = new Promise (function (resolve, reject) {
+
+        var formattedMessage = createMessage(message);
+        var xhttp     = new XMLHttpRequest,
+        firebaseURL   = "https://tldr-v2.firebaseio.com/messages/"+username+"/message-1.json",
+        method        = "PUT";
+
+        console.log("Sending TLDR message to database...: ", firebaseURL), 
+
+        xhttp.onload = function() {
+            console.log(JSON.parse(xhttp.responseText));
+            resolve();
+        }
+
+        xhttp.onerror = function(error) {
+            reject(error)
+        }
+
+        xhttp.open(method, firebaseURL, !0);
+        xhttp.send(JSON.stringify(formattedMessage));
+    })
+}
 
 
 
-
-function renderMetadata(articleInfo) {
+function renderMetadata(url, articleInfo) {
     console.log("rendering the metadata...")
     var displayContainer = document.getElementById("display-container");
     if (articleInfo) {
         var tmpl = template(articleInfo);
         displayContainer.innerHTML = tmpl;
-        sendTLDR();
+        sendTLDR(url, articleInfo);
     } else {
         console.log("Tried to render missing data");
     }
 }
 
-function sendTLDR() {
-    var tldr = document.getElementById('new-tldr-input-tldr');
-    tldr.addEventListener('keypress', function (e) {
+function sendTLDR(url, articleInfo) {
+    var tldrMessage = document.getElementById('new-tldr-input-tldr');
+    tldrMessage.addEventListener('keypress', function (e) {
         var key = e.which || e.keyCode;
         if (key === 13) { // 13 is enter // code for enter
-            console.log(tldr.innerHTML)
-            var header = document.getElementById('info-label');
-            header.innerHTML = "TLDR sent! Write another one!";
-            tldr.innerHTML = "@username:";
+            console.log(tldrMessage.innerHTML)
+            var message = tldrMessage.innerHTML;
+            var tldr = createTLDR(url, articleInfo, message);
+            var firebaseUpdates = [];
+            firebaseUpdates.push(sendToFirebase(tldr));
+            firebaseUpdates.push(updateUserTLDRsInFirebase(tldr));
+            firebaseUpdates.push(sendMessageToFirebase(message));
+            Promise.all(firebaseUpdates)
+            .then(function() {
+                var header = document.getElementById('info-label');
+                header.innerHTML = "TLDR sent! Write another one!";
+                tldrMessage.innerHTML = "TLDR:";
+            })
         }
     });
 }
@@ -287,9 +358,16 @@ function sendTLDR() {
 document.addEventListener('DOMContentLoaded', () => {
     getCurrentTabUrl((url) => {
 
+        // Gets the metadata for the article to render in the popup
         getArticleInformation(url)
         .then(function(articleInfo) {
-            renderMetadata(articleInfo);
+
+            // Displays the metadata for the article 
+            renderMetadata(url, articleInfo);
+
+            // We're going to run two analysis APIs on the article
+            // getPoliticalSentiment will return the political bias of the article
+            // summarizeArticle will summarize the article into one sentence
             var articleAnalyses = [];
             articleAnalyses.push(getPoliticalSentiment(articleInfo.title));
             articleAnalyses.push(summarizeArticle(url));
@@ -299,6 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 var politicalSentiment = analyses[0];
                 var summary = analyses[1];
 
+                // Now that we have the political sentiment and the article summary, we're going to display the metadata
                 var tldr = document.getElementById('new-tldr-input-tldr');
                 tldr.innerHTML = "(" + politicalSentiment + ") : " + summary;  
             })            

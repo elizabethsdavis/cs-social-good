@@ -1,8 +1,3 @@
-/*
-App reset by Ben Frain @benfrain / benfrain.com
-Slightly modified by Bharani @bharani91 / github.com/bharani91
-*/
-/*Hat tip to @thierrykoblentz for this approach: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
 html {
   box-sizing: border-box;
 }
